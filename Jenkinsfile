@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // sh 'npm run test'
+                sh 'npm run test'
                 echo "Test"
 
             }
@@ -26,9 +26,9 @@ pipeline {
         stage('Build Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh 'docker build -t jennykibiri/sample-react-app .'
+                    sh 'docker build -t devopsfarm/nodejs-helloworld-app .'
                     sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh 'docker push jennykibiri/sample-react-app'
+                    sh 'docker push devopsfarm/nodejs-helloworld-app'
                 }
             }
         }
